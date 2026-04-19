@@ -22,24 +22,21 @@ To run this project, you will need Python 3.x installed, along with a few standa
 
 ```bash
 pip install pandas numpy matplotlib squarify plotly openpyxl
-The Dataset
+```
+### The Dataset
+Please ensure you have the data file named `hosp-epis-stat-admi-diag-2023-24-tab.xlsx` saved in the exact same folder as the Python script.
 
-The script is built to process the official NHS statistics. Please ensure you have the data file named hosp-epis-stat-admi-diag-2023-24-tab.xlsx saved in the exact same folder as the Python script. The code will automatically locate and read from the "Primary Diagnosis Summary" sheet.
-Running the Project
+## Running the Project
 
-Getting the visualizations is very straightforward:
+1. Place both the `treemap_visualization.py` script and your Excel data file in the same folder.
+2. Open your terminal, navigate to that folder, and run:
+   `python treemap_visualization.py`
+3. The script will save two new visualization files in your folder.
 
-    1.Place both the treemap_visualization.py script and your Excel data file in the same folder.
+## Project Outputs
 
-    2.Open your terminal or command prompt, navigate to that folder, and run the script using:
-    python treemap_visualization.py
+### 1. Static Treemap (treemap_nhs.png)
+A high-resolution static image. It uses a custom hierarchical color palette and handles text wrapping automatically.
 
-    3.The script will process the data and automatically save two new visualization files in your folder.
-
-Project Outputs
-1. Static Treemap (treemap_nhs.png)
-
-The script generates a high-resolution static image. It uses a custom hierarchical color palette where each color represents a distinct ICD-10 chapter. The code automatically handles text wrapping and dynamic font scaling so the labels fit neatly inside their respective boxes. This version is perfect for embedding directly into academic reports, Word documents, or presentation slides.
-2. Interactive Treemap (treemap_interactive.html)
-
-For a more in-depth exploration of the data, the script also creates an interactive HTML webpage powered by Plotly. You can open this file in any standard web browser. It features click-to-zoom (drill-down) functionality, and if you hover your cursor over any specific block, it reveals exact metrics: the total admissions (FAE), the emergency admission ratio, the mean age of the patients, and their average length of stay in the hospital.
+### 2. Interactive Treemap (treemap_interactive.html)
+An interactive HTML webpage (open in any browser). It features click-to-zoom and reveals metrics like FAE, Mean Age, and Length of Stay on hover.
