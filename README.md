@@ -11,6 +11,7 @@ The main goal of this script is to make complex healthcare data accessible and e
 * `hosp-epis-stat-admi-diag-2023-24-tab.xlsx` : source data file.
 * `treemap_nhs.png` : final static visualisation output (high-resolution image, automatically handles text wrapping and dynamic font scaling).
 * `treemap_interactive.html` : final interactive visualisation output (powered by Plotly, supports click-to-zoom and hover metrics like FAE, Mean Age, and Length of Stay).
+
 ## How the Code Works
 
 ### Data Processing Strategy
@@ -21,7 +22,6 @@ To run this project, you will need Python 3.x installed, along with a few standa
 
 ```bash
 pip install pandas numpy matplotlib squarify plotly openpyxl
-
 The Dataset
 
 The script is built to process the official NHS statistics. Please ensure you have the data file named hosp-epis-stat-admi-diag-2023-24-tab.xlsx saved in the exact same folder as the Python script. The code will automatically locate and read from the "Primary Diagnosis Summary" sheet.
