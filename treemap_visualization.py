@@ -18,9 +18,8 @@ import matplotlib.colors as mcolors
 import squarify
 import plotly.express as px
 
-# Step 1: Load and Clean Data
+# Load and Clean Data
 INPUT_FILE = 'hosp-epis-stat-admi-diag-2023-24-tab.xlsx'
-
 df = pd.read_excel(INPUT_FILE, sheet_name='Primary Diagnosis Summary', header=0)
 data = df.iloc[1:].copy()
 data = data[data.iloc[:, 0].str.match(r'^[A-Z]\d', na=False)].copy()
@@ -36,8 +35,7 @@ data.columns = ['Code', 'Description', 'FCE', 'FAE', 'Male', 'Female', 'GenderUn
 for col in ['FCE', 'FAE', 'Emergency', 'MeanAge', 'MeanLOS', 'Male', 'Female']:
     data[col] = pd.to_numeric(data[col], errors='coerce')
 
-# Step 2: Map to ICD-10 Chapters
-
+# Map to ICD-10 Chapters
 def get_chapter(code):
     """Map ICD-10 subcategory code to parent chapter."""
     letter = code[0]
@@ -75,8 +73,7 @@ data['Chapter'] = data['Code'].apply(get_chapter)
 data = data[(data['Chapter'] != 'Other') & (data['FAE'] > 500)].copy()
 data['EmergencyRatio'] = (data['Emergency'] / data['FAE'] * 100).round(1)
 
-# Step 3: Build hierarchy (top 5 subcategories + Others per chapter)
-
+# Build hierarchy (top 5 subcategories + Others per chapter)
 ch_totals = data.groupby('Chapter')['FAE'].sum().sort_values(ascending=False)
 top_chapters = ch_totals.head(8).index.tolist()
 
@@ -132,8 +129,7 @@ for ch in top_chapters:
 
 tree = pd.DataFrame(rows)
 
-# Step 4: Static Treemap (matplotlib + squarify)
-
+# Static Treemap (matplotlib + squarify)
 palette = {
     'Neoplasms': '#6A9EC9', 'Digestive System': '#7DB892',
     'Symptoms/Signs': '#D1A362', 'Pregnancy': '#C99AAF',
@@ -255,8 +251,7 @@ plt.savefig('treemap_nhs.png', dpi=250, bbox_inches='tight', facecolor='white')
 plt.close()
 print("Static treemap saved: treemap_nhs.png")
 
-# Step 5: Interactive Treemap (plotly)
-
+# Interactive Treemap (plotly)
 fig = px.treemap(tree, path=['Chapter', 'Label'], values='FAE', color='Chapter',
     color_discrete_map=palette,
     custom_data=['FAE', 'MeanAge', 'MeanLOS', 'EmergencyRatio'],
