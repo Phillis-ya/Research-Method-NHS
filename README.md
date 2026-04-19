@@ -1,50 +1,39 @@
-# RESEARCH METHOD COURSEWORK 2: NHS HOSPITAL ADMISSIONS TREEMAP VISUALIZATION
+# Research Method Coursework 2: NHS Hospital Admissions Treemap
 
-[Project Overview]
+## Introduction
+Welcome to my submission for the COMP4037 Research Methods Coursework 2. This project focuses on processing and visualizing hospital admission data from the NHS England Hospital Episode Statistics (HES) for the 2023-24 period. 
 
-This repository contains the Python script developed for COMP4037 Research Methods - Coursework 2. The project processes and visualizes the NHS England Hospital Episode Statistics (HES) for admitted patient care (2023-24). It uses a hierarchical treemap to illustrate the distribution of admissions across different ICD-10 chapters and their subcategories.
+The main goal of this script is to make complex healthcare data accessible and easy to understand. By generating a hierarchical treemap, it visually breaks down patient admissions across various ICD-10 disease chapters and their specific subcategories, making it easy to see which health conditions account for the most hospital visits.
 
-[Core Logic]
+## How the Code Works
 
-    Maps complex ICD-10 diagnosis codes into 21 human-readable disease Chapters.
+### Data Processing Strategy
+The script starts by taking the raw, highly technical ICD-10 diagnosis codes and mapping them into 21 human-readable disease chapters (for example, grouping specific codes into broader categories like "Infectious Diseases" or "Neoplasms"). To keep the final visualization clean and readable, it automatically extracts the top 5 subcategories with the highest Finished Admission Episodes (FAE) for each chapter, grouping the remaining smaller categories into an "Others" block.
 
-    Extracts the top 5 subcategories with the highest Finished Admission Episodes (FAE) for each chapter.
+### Required Libraries
+To run this project, you will need Python 3.x installed, along with a few standard data science and visualization packages. You can quickly install everything you need by running the following command in your terminal:
 
-    Generates both a static image for academic reporting and an interactive webpage for in-depth data exploration.
-
-[Prerequisites]
-
-Before running the script, ensure you have Python 3.x installed along with the following required libraries. You can install them in your terminal using this command:
+```bash
 pip install pandas numpy matplotlib squarify plotly openpyxl
 
-    pandas: Data cleaning, filtering, and hierarchical structure building.
+The Dataset
 
-    matplotlib: Generating high-resolution static PNG images.
+The script is built to process the official NHS statistics. Please ensure you have the data file named hosp-epis-stat-admi-diag-2023-24-tab.xlsx saved in the exact same folder as the Python script. The code will automatically locate and read from the "Primary Diagnosis Summary" sheet.
+Running the Project
 
-    squarify: Calculating the treemap layout algorithm.
+Getting the visualizations is very straightforward:
 
-    plotly: Generating interactive HTML with zoom and hover capabilities.
+    1.Place both the treemap_visualization.py script and your Excel data file in the same folder.
 
-    openpyxl: Engine required by pandas to read Excel files.
+    2.Open your terminal or command prompt, navigate to that folder, and run the script using:
+    python treemap_visualization.py
 
-[Data Requirements]
+    3.The script will process the data and automatically save two new visualization files in your folder.
 
-The script requires a specific NHS data file to function. Please ensure the following file is placed in the exact same directory as the script:
+Project Outputs
+1. Static Treemap (treemap_nhs.png)
 
-    Filename: hosp-epis-stat-admi-diag-2023-24-tab.xlsx
+The script generates a high-resolution static image. It uses a custom hierarchical color palette where each color represents a distinct ICD-10 chapter. The code automatically handles text wrapping and dynamic font scaling so the labels fit neatly inside their respective boxes. This version is perfect for embedding directly into academic reports, Word documents, or presentation slides.
+2. Interactive Treemap (treemap_interactive.html)
 
-    Target Sheet: Primary Diagnosis Summary
-
-[How to Run]
-
-    Place the files: Ensure treemap_visualization.py and the Excel data file are in the same folder.
-
-    Execute the script: Open your terminal or command prompt and run: python treemap_visualization.py
-
-    Check the output: The console will confirm once the visualization files have been successfully saved in your folder.
-
-[Visualization Outputs]
-
-    Static Treemap (treemap_nhs.png): Uses a hierarchical color palette where different colors represent distinct ICD-10 Chapters. Automatically handles text wrapping and dynamic font scaling. Ideal for embedding directly into Word documents, academic papers, or slide presentations.
-
-    Interactive Treemap (treemap_interactive.html): Powered by Plotly, supporting click-to-zoom (drill-down) functionality for specific chapters. Hovering over a block reveals detailed metrics like Total Admissions (FAE), Emergency Ratio, Mean Age, and Mean Length of Stay.
+For a more in-depth exploration of the data, the script also creates an interactive HTML webpage powered by Plotly. You can open this file in any standard web browser. It features click-to-zoom (drill-down) functionality, and if you hover your cursor over any specific block, it reveals exact metrics: the total admissions (FAE), the emergency admission ratio, the mean age of the patients, and their average length of stay in the hospital.
