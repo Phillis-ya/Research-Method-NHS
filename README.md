@@ -5,6 +5,12 @@ Welcome to my submission for the COMP4037 Research Methods Coursework 2. This pr
 
 The main goal of this script is to make complex healthcare data accessible and easy to understand. By generating a hierarchical treemap, it visually breaks down patient admissions across various ICD-10 disease chapters and their specific subcategories, making it easy to see which health conditions account for the most hospital visits.
 
+## Files
+
+* `treemap_visualization.py` : processes the NHS spreadsheet, maps complex ICD-10 diagnosis codes into 21 human-readable Chapters, extracts the top 5 subcategories for each, and generates the hierarchical treemaps.
+* `hosp-epis-stat-admi-diag-2023-24-tab.xlsx` : source data file.
+* `treemap_nhs.png` : final static visualisation output (high-resolution image, automatically handles text wrapping and dynamic font scaling).
+* `treemap_interactive.html` : final interactive visualisation output (powered by Plotly, supports click-to-zoom and hover metrics like FAE, Mean Age, and Length of Stay).
 ## How the Code Works
 
 ### Data Processing Strategy
