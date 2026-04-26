@@ -1,14 +1,3 @@
-"""
-NHS Hospital Admissions 2023-24: Hierarchical Treemap Visualization
-COMP4037 Research Methods - Coursework 2
-
-Generates a nested hierarchical treemap showing NHS hospital admissions
-by ICD-10 chapter and subcategory, with human-readable labels.
-
-Dependencies: pandas, numpy, matplotlib, squarify, plotly
-Data: NHS England HES Admitted Patient Care Activity: Diagnosis 2023-24
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -23,7 +12,6 @@ INPUT_FILE = 'hosp-epis-stat-admi-diag-2023-24-tab.xlsx'
 df = pd.read_excel(INPUT_FILE, sheet_name='Primary Diagnosis Summary', header=0)
 data = df.iloc[1:].copy()
 data = data[data.iloc[:, 0].str.match(r'^[A-Z]\d', na=False)].copy()
-
 data.columns = ['Code', 'Description', 'FCE', 'FAE', 'Male', 'Female', 'GenderUnknown',
                 'Emergency', 'WaitingList', 'Planned', 'Other', 'MeanWait', 'MedianWait',
                 'MeanLOS', 'MedianLOS', 'MeanAge'] + \
@@ -34,10 +22,9 @@ data.columns = ['Code', 'Description', 'FCE', 'FAE', 'Male', 'Female', 'GenderUn
 
 for col in ['FCE', 'FAE', 'Emergency', 'MeanAge', 'MeanLOS', 'Male', 'Female']:
     data[col] = pd.to_numeric(data[col], errors='coerce')
-
+  
 # Map to ICD-10 Chapters
 def get_chapter(code):
-    """Map ICD-10 subcategory code to parent chapter."""
     letter = code[0]
     try:
         num = int(code.split('-')[0][1:])
@@ -151,7 +138,6 @@ def text_color(c):
     return '#FFFFFF' if 0.299*c[0]+0.587*c[1]+0.114*c[2] < 0.58 else '#222222'
 
 def safe_label(label, max_w):
-    """Split at word boundary only, never break mid-word."""
     if len(label) <= max_w:
         return label
     words = label.split()
